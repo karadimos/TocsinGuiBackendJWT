@@ -7,7 +7,7 @@ import axios from 'axios';
 export class AxiosService {
 
   constructor() {
-    axios.defaults.baseURL = 'http://localhost:8080';
+    axios.defaults.baseURL = 'http://localhost:9090/tocsin-gui/';
     axios.defaults.headers.post['Content-Type'] = 'application/json';
   }
 
@@ -29,6 +29,7 @@ export class AxiosService {
 
       if (this.getAuthToken() !== null) {
           headers = {"Authorization": "Bearer " + this.getAuthToken()};
+          //console.log("AuthToken: " + this.getAuthToken());
       }
 
       return axios({

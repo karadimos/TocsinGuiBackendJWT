@@ -1,0 +1,21 @@
+   
+<div class="background-wrap">
+    <div class="background"></div>
+  </div>
+ 
+  <form id="accesspanel" action="">
+    <h1 id="litheader">TOCSIN GUI</h1>
+        this.isLoginFailed = false;
+    <div style="height: 30px;"><h2 style="color: red;" *ngIf="isLoginFailed">Falscher Username/passwort</h2></div>
+    <div class="inset">
+      <p>
+        <input type="text" name="username" [(ngModel)]="username" id="email" placeholder="username">
+      </p>
+      <p>
+        <input type="password" name="password" [(ngModel)]="password" id="password" placeholder="password" autocomplete="on">
+      </p>
+    </div>
+    <p class="p-container">
+      <input type="submit" name="Login" id="go" value="Login" (click)="doLogin()">
+    </p>
+  </form>

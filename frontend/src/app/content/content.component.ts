@@ -18,13 +18,13 @@ export class ContentComponent {
 	onLogin(input: any): void {
 		this.axiosService.request(
 		    "POST",
-		    "/login",
+		    "/auth/signin",
 		    {
-		        login: input.login,
+		        username: input.login,
 		        password: input.password
 		    }).then(
 		    response => {
-		        this.axiosService.setAuthToken(response.data.token);
+		        this.axiosService.setAuthToken(response.data.accessToken);
 		        this.componentToShow = "messages";
 		    }).catch(
 		    error => {
@@ -38,7 +38,7 @@ export class ContentComponent {
 	onRegister(input: any): void {
 		this.axiosService.request(
 		    "POST",
-		    "/register",
+		    "/auth/signup",
 		    {
 		        firstName: input.firstName,
 		        lastName: input.lastName,

@@ -7,17 +7,17 @@ import { AxiosService } from '../axios.service';
   styleUrls: ['./auth-content.component.css']
 })
 export class AuthContentComponent {
-  data: string[] = [];
+  data: any;
 
   constructor(private axiosService: AxiosService) {}
 
   ngOnInit(): void {
     this.axiosService.request(
         "GET",
-        "/messages",
+        "/api/cities",
         {}).then(
         (response) => {
-            this.data = response.data;
+            this.data = response.data.map((a: { cityName: any; }) => a.cityName)
         }).catch(
         (error) => {
             if (error.response.status === 401) {
@@ -25,7 +25,6 @@ export class AuthContentComponent {
             } else {
                 this.data = error.response.code;
             }
-
         }
     );
   }

@@ -1,0 +1,47 @@
+<mat-nav-list>    
+    <div class="logo">
+      <img src="./assets/tocsin.ico" alt="Tocsin Logo" />
+      <span>Tocsin</span>  
+    </div>
+    
+    <mat-divider></mat-divider>
+    <h2 matSubheader class="mt-2">APPLICATIONS</h2>
+  
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/home">
+      <mat-icon>home</mat-icon> Home
+    </a>
+    <a mat-list-item routerLinkActive="list-item" routerLink="/dashboard">
+      <mat-icon>dashboard</mat-icon> Dashboard
+    </a>  
+    <a mat-list-item routerLinkActive="list-item" routerLink="/portfolio">
+      <mat-icon>stay_primary_portrait</mat-icon> Portfolio
+    </a>
+    <a mat-list-item routerLinkActive="list-item" routerLink="/maps">
+      <mat-icon>location_on</mat-icon> Maps
+    </a>
+    <a mat-list-item routerLinkActive="list-item" routerLink="/cluster">
+      <mat-icon>view_quilt</mat-icon> Cluster
+    </a>
+    <a mat-list-item routerLinkActive="list-item" routerLink="/mowas">
+      <mat-icon>view_quilt</mat-icon> Emergencies
+    </a>
+    <a mat-list-item routerLinkActive="list-item" class="parent" (click)="showSubmenu = !showSubmenu">
+      <mat-icon>settings</mat-icon> Admin
+    </a>
+    <div *ngIf="showSubmenu" >
+      <a mat-list-item routerLinkActive="list-item" class="children" routerLink="/register">
+        <mat-icon>view_quilt</mat-icon> Register
+      </a> 
+      <a mat-list-item routerLinkActive="list-item" class="children" routerLink="/new-cluster">
+        <mat-icon>view_quilt</mat-icon> New Cluster
+      </a> 
+    </div>      
+    <a mat-list-item routerLink="/reports"> <mat-icon>list</mat-icon> Reports </a>
+    <a mat-list-item> <mat-icon>edit</mat-icon> Editor3 EM's </a>    
+    <a mat-list-item> <mat-icon>edit</mat-icon> Link 6 </a>
+    <mat-divider></mat-divider>
+    <a mat-list-item routerLinkActive="list-item" routerLink="/">
+      <mat-icon>power_settings_new</mat-icon> LOG OUT
+    </a>
+  </mat-nav-list>
+  

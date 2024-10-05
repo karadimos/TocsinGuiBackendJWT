@@ -1,0 +1,28 @@
+.card {
+  margin-top: 10px;
+  border: none;
+  width: 500px;
+  padding: 40px;
+  top: 4%;
+  left: 50%;
+  background: #295270;
+  background: -webkit-gradient(linear, left top, right top, from(#295270), to(#534176));
+  background: linear-gradient(90deg, #295270 0%, #534176 100%);
+}
+
+.card h1, h6 {
+  color: #fff;
+}
+
+label {
+  color: #fff;
+}
+
+.list {
+  background-color: white;
+}
+
+.list-option {
+  color: blue;
+}
+/*# sourceMappingURL=signup.component.css.map */

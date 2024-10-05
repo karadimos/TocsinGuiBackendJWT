@@ -1,0 +1,85 @@
+<div class="container" style="width: 100%;">   
+    <div *ngIf="mowasDetails">
+    <table class="table table-hover table-responsive-xl">
+        <thead class="bg-primary"> 
+            <tr style="text-align: center;">   
+                <th scope="col" class="rounded-company">ID</th>                
+                <th scope="col" class="rounded-q2">msgType</th>
+                <th scope="col" class="rounded-q3">severity</th> 
+                <th scope="col" class="rounded-q3">sentTime</th>
+                <!--th scope="col" class="rounded-q3">cluster</th>                               
+                <th scope="col" class="rounded-q3">overRiding</th>
+                <th scope="col" class="rounded-q3">appending</th-->                                
+                <th scope="col" class="rounded-q3">Message</th>
+                <th scope="col" class="rounded-q3">Instruction</th>                
+                <th scope="col" class="rounded-q3">error</th>
+                <th scope="col" class="rounded-q4">geoData</th>                
+                <th></th>                
+            </tr>
+        </thead>        
+        <tbody *ngFor="let emd of mowasDetails">         
+            <tr>
+                <td><a href="javascript:void(0);" (click)="onSelect(emd)">{{emd.id}}</a></td>                
+                <td>{{emd.alertMsgtypeId.msgType}}</td>
+                <td [ngClass]="emd.infoSeverityId.id == 4? 'bgc-red' : emd.infoSeverityId.id == 3 ? 'bgc-yellow' : ''" style="text-align: center;">
+                    {{emd.infoSeverityId.severity}}
+                    <mat-icon *ngIf="emd.infoSeverityId.id == 4" style="position: relative;top:5px;">report_problem</mat-icon>
+                </td>               
+                <td>{{emd.alertSent | date:'dd.MM.yy hh:mm'}}</td>
+                <td class="ellipsis300" title="{{emd.infoHeadline}}">{{emd.infoHeadline}}</td>
+                <td><div class="ellipsis600" title="{{emd.infoInstruction}}">{{emd.infoInstruction}}</div></td>
+                <td>{{emd.errCode}}</td>
+                <td>
+                    <ul class="list-group" *ngFor="let geo of emd.areaGeoDataList">
+                        <li class="list-group-item p-0 ellipsis" title={{geo.geoData}}>{{geo.geoData}}</li>                                                   
+                    </ul> 
+                </td>    
+                <td>
+                    <i class="fas fa-globe icon-dark fa-lg" style="cursor:pointer" aria-hidden="true" title="Show area in map" href="javascript:void(0);" (click)="openModal(template, emd.id)"></i>	
+                </td>                                        
+            </tr>        
+            <tr [ngClass]="'fadeInDown'"  *ngIf="mowasDetailId===emd.id">  
+                <td [colSpan]=9>              
+                    <app-emergencydetails [emergencyDetails]="selectedEmergencyDetails"></app-emergencydetails>
+                </td>  
+            </tr>   
+        </tbody>
+        <!-->
+            <tfoot>
+            <tr>
+                <td colspan="4" class="rounded-foot-left"><em>The above data were fictional and made up, please do not sue me</em></td>
+                <td class="rounded-foot-right">&nbsp;</td>
+            </tr>            
+        </tfoot> 
+        -->              
+    </table>    
+    
+     </div>
+    <!--emergencydetail [emergencyDetail]="selectedEmergencyDetail"></emergencydetail-->
+</div>
+
+<ng-template #template>
+    <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Modal</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="map-container">
+        <div class="map-frame">
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" (click)="modalRef?.hide()">Close</button>
+    </div>
+  </div>
+  </ng-template>
+
+
+  
+
+
