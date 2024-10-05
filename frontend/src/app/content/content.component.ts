@@ -8,6 +8,7 @@ import { AxiosService } from '../axios.service';
 })
 export class ContentComponent {
 	componentToShow: string = "welcome";
+	
 
 	constructor(private axiosService: AxiosService) { }
 

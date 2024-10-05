@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+* {
+    font-family: "Lato", sans-serif;
+  }
+  
+  html,
+  body {
+    height: 100%;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+  
+  html, body {
+    height: 100%;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+  
+  .bgc-red {
+    background-color: red !important;
+  }
+  
+  .bgc-yellow {
+    background-color: yellow !important;
+  }
+  
+  .bgc-green {
+    background-color: green !important;
+  }
+  /*# sourceMappingURL=styles.css.map */

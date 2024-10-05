@@ -1,7 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -13,10 +11,10 @@ export class HeaderComponent implements OnInit {
 
   username: string = "";
 
-  constructor(private auth: AuthService, private router: Router, private tokenStorage: TokenStorageService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.username = this.tokenStorage.getUser().username;
+    
   }
 
   toggleSidebar() {
@@ -26,7 +24,6 @@ export class HeaderComponent implements OnInit {
   logout() {
     //TODO
     //this.auth.logout();
-    this.tokenStorage.signOut();
-    this.router.navigate(["/login"])
+    //this.router.navigate(["/login"])
   }
 }

@@ -14,7 +14,7 @@ export class AuthContentComponent {
   ngOnInit(): void {
     this.axiosService.request(
         "GET",
-        "/api/media",
+        "/api/cities",
         {}).then(
         (response) => {
             this.data = response.data.map((a: { cityName: any; }) => a.cityName)

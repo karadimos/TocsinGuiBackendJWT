@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title: string = 'frontend';
+  title = 'TocsinGui';
+	sideBarOpen = true;
+	showHead = true;
+	loading$ = true;
+
+  sideBarToggler() {
+    this.sideBarOpen = !this.sideBarOpen;
+    if (this.showHead == false) {
+      this.sideBarOpen = false;
+    }
+  }
 }
