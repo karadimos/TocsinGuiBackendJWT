@@ -1,4 +1,6 @@
 import { EventEmitter, Component, Output } from '@angular/core';
+import { AxiosService } from '../axios.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -7,10 +9,9 @@ import { EventEmitter, Component, Output } from '@angular/core';
   })
 export class LoginFormComponent {
 
-  @Output() onSubmitLoginEvent = new EventEmitter();
-  @Output() onSubmitRegisterEvent = new EventEmitter();
-
-	active: string = "login";
+  constructor(private axiosService: AxiosService, private router: Router) { }
+  
+active: string = "login";
   firstName: string = "";
   lastName: string = "";
   login: string = "";
@@ -24,12 +25,45 @@ export class LoginFormComponent {
 		this.active = "register";
 	}
 
-  onSubmitLogin(): void {
-    this.onSubmitLoginEvent.emit({"login": this.login, "password": this.password});
-  }
+  onLogin(): void {
+		this.axiosService.request(
+		    "POST",
+		    "/auth/signin",
+		    {
+		        username: this.login,
+		        password: this.password
+		    }).then(
+		    response => {
+		        this.axiosService.setAuthToken(response.data.accessToken);
+		        this.router.navigate(["/home"])
+		    }).catch(
+		    error => {
+		        this.axiosService.setAuthToken(null);
+		        this.router.navigate(["/login"])
+		    }
+		);
 
-  onSubmitRegister(): void {
-    this.onSubmitRegisterEvent.emit({"firstName": this.firstName, "lastName": this.lastName, "login": this.login, "password": this.password});
-  }
+	}
+
+	onRegister(): void {
+		this.axiosService.request(
+		    "POST",
+		    "/auth/signup",
+		    {
+		        firstName: this.firstName,
+		        lastName: this.lastName,
+		        login: this.login,
+		        password: this.password
+		    }).then(
+		    response => {
+		        this.axiosService.setAuthToken(response.data.token);
+		        this.router.navigate(["/home"])
+		    }).catch(
+		    error => {
+		        this.axiosService.setAuthToken(null);
+		        this.router.navigate(["/login"])
+		    }
+		);
+	}
 
 }
