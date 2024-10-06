@@ -12,8 +12,6 @@ import { WelcomeContentComponent } from './welcome-content/welcome-content.compo
 import { AuthContentComponent } from './auth-content/auth-content.component';
 import { ContentComponent } from './content/content.component';
 
-import { NgApexchartsModule } from 'ng-apexcharts';
-
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
