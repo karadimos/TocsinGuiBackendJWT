@@ -74,14 +74,13 @@ export class ClusterComponent implements OnInit {
   }
 
   getCluster(): any {
-    console.log("getCluster");
     this.restdata.getCluster().then(      
-      (cluster: ClusterModel[]) => {
-        console.log("cluster:" + JSON.stringify(cluster));
-        this.clusterList = cluster.sort(function (itemA, itemB) {
+      (cluster: any) => {                
+        this.clusterList = cluster.data.sort(function (itemA:any,itemB:any) {
           return itemA.cityUuid?.cityName.localeCompare(itemB.cityUuid?.cityName, undefined, { numeric: false, sensitivity: 'base' });
         });
-        this.clusterFilteredList = cluster;
+        this.clusterFilteredList = this.clusterList;
+        
       }).catch(
         (err) => {
           console.log("error: " + JSON.stringify(err));
@@ -99,7 +98,7 @@ export class ClusterComponent implements OnInit {
     this.restdata.getCities().then(
       (cities: CitiesModel[]) => {
         //console.log("cities: " + cities);
-        this.cities = cities.sort(function (itemA, itemB) {
+        this.cities = [].slice.call(cities).sort(function (itemA: { cityName: string; }, itemB: { cityName: any; }) {
           return itemA.cityName.localeCompare(itemB.cityName, undefined, { numeric: false, sensitivity: 'base' });
         });
       },
@@ -118,7 +117,7 @@ export class ClusterComponent implements OnInit {
     this.restdata.getMedia().then(
       (media: MediaModel[]) => {
         //console.log("media: " + JSON.stringify(media));    
-        this.media = media.sort(function (itemA, itemB) {
+        this.media = [].slice.call(media).sort(function (itemA: { mediaName: string; }, itemB: { mediaName: any; }) {
           return itemA.mediaName.localeCompare(itemB.mediaName, undefined, { numeric: false, sensitivity: 'base' });
         });
       },
@@ -137,7 +136,7 @@ export class ClusterComponent implements OnInit {
     this.restdata.getBundles().then(
       (bundles: BundlesModel[]) => {
         //console.log("bundles: " + bundles);
-        this.bundles = bundles.sort(function (itemA, itemB) {
+        this.bundles = [].slice.call(bundles).sort(function (itemA: { bundleName: string; }, itemB: { bundleName: any; }) {
           return itemA.bundleName.localeCompare(itemB.bundleName, undefined, { numeric: false, sensitivity: 'base' });
         });
       },
@@ -156,7 +155,7 @@ export class ClusterComponent implements OnInit {
     this.restdata.getSenderGroups().then(
       (senderGroups: SenderGroupsModel[]) => {
         //console.log("senderGroups: " + senderGroups);
-        this.senderGroups = senderGroups.sort(function (itemA, itemB) {
+        this.senderGroups = [].slice.call(senderGroups).sort(function (itemA: { groupName: string; }, itemB: { groupName: any; }) {
           return itemA.groupName.localeCompare(itemB.groupName, undefined, { numeric: false, sensitivity: 'base' });
         });
       },
@@ -170,7 +169,7 @@ export class ClusterComponent implements OnInit {
       }
     );
   }
-   
+  
   sort(fieldName: string): any {
     this.reverse = !this.reverse;
     //console.log("fieldName: " + fieldName);
@@ -187,4 +186,5 @@ export class ClusterComponent implements OnInit {
         this.clusterList = this.clusterList.sort((a, b) => (b.mediaUuid.mediaName > a.mediaUuid.mediaName) ? 1 : -1);
       }
   }
+  
 }

@@ -62,47 +62,25 @@ export class RestdataService {
   });
   */
   getCluster(): Promise<any> {
-    return axios({
-      method:"GET",
-      url: this.baseUrl + "api/cluster"
-  });
-  
-    //).get<ClusterModel[]>(this.baseUrl + "api/cluster", { responseType: 'json' });
+    return this.request("GET",this.baseUrl +  "api/cluster",{});         
   }
 
   getCities(): Promise<any> {
-    return axios({
-      method:"GET",
-      url: this.baseUrl + "api/cities"
-  });
+    return this.request("GET",this.baseUrl + "api/cities",{}); 
   }
 
   getSenderGroups(): Promise<any> {
-    return axios({
-      method:"GET",
-      url: this.baseUrl + "api/data/sender-groups"
-  });
+    return this.request("GET",this.baseUrl + "api/data/sender-groups",{});    
   }
 
   getMedia(): Promise<any> {
-    return axios({
-      method:"GET",
-      url: this.baseUrl + "api/media"
-  });
+    return this.request("GET",this.baseUrl + "api/media",{});
 }
-  
+
   getBundles(): Promise<any> {
-    return axios({
-      method:"GET",
-      url: this.baseUrl + "api/bundles"
-  });
+    return this.request("GET",this.baseUrl + "api/bundles",{});
   }
   
-  /*
-  getBundles(): Promise<any> {
-    return this.request("GET",this.baseUrl + "api/bundles");
-  }
-  */
   request(method: string, url: string, data: any): Promise<any> {
     let headers: any = {};
 
