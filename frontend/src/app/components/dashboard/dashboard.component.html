@@ -1,0 +1,185 @@
+<div class="container-fluid page">
+  <div >
+    <div class="page__content-data">
+      <div class="main">
+        <div class="main__container">
+          <!-- MAIN TITLE STARTS HERE -->
+          <br>
+          <div class="main__title">
+            <img src="assets/hello.svg" alt="" />
+            <div class="main__greeting">
+              <h1>Tocsin</h1>
+              <p>Welcome to your admin dashboard</p>
+            </div>
+          </div>
+          <br>
+          <!-- MAIN TITLE ENDS HERE -->
+
+          <!-- MAIN CARDS STARTS HERE -->
+          <div class="main__cards">
+            <div class="card">
+              <i
+                class="fa fa-user fa-2x text-lightblue"
+                aria-hidden="true"
+              ></i>
+              <div class="card_inner">
+                <p class="text-primary-p">Number of Cities</p>
+                <span class="font-bold text-title">{{numCities}}</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <i class="fa fa-calendar fa-2x text-red" aria-hidden="true"></i>
+              <div class="card_inner">
+                <p class="text-primary-p">Number of Media</p>
+                <span class="font-bold text-title">{{numMedia}}</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <i
+                class="fa fa-video-camera fa-2x text-yellow"
+                aria-hidden="true"
+              ></i>
+              <div class="card_inner">
+                <p class="text-primary-p">Number of Screens</p>
+                <span class="font-bold text-title">{{numScreens}}</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <i
+                class="fa fa-thumbs-up fa-2x text-green"
+                aria-hidden="true"
+              ></i>
+              <div class="card_inner">
+                <p class="text-primary-p">Number of Screens nationwide</p>
+                <span class="font-bold text-title">{{numAllScreens}}</span>
+              </div>
+            </div>
+          </div>
+          <!-- MAIN CARDS ENDS HERE -->
+
+          <!-- CHARTS STARTS HERE -->
+          <div class="charts">
+            <div class="charts__left">
+              <div class="charts__left__title">
+                <div>
+                  <h1>Yearly Reports</h1>
+                  <p>Cupertino, California, USA</p>
+                </div>
+                <i class="fa fa-usd" aria-hidden="true"></i>
+              </div>
+              <div style="text-align:center">
+                <apx-chart
+                  [series]="chartOptions.series"
+                  [chart]="chartOptions.chart"
+                  [xaxis]="chartOptions.xaxis"
+                  [title]="chartOptions.title"
+                ></apx-chart>
+              </div>
+              <!--div id="apex1"></div-->
+            </div>
+            <div class="flex-item-right overflow-auto">
+              <!--
+              <div class="scroll">
+                  <table class="table table-hover table-striped table-responsive-xl">
+                    <thead class="table-dark center">
+                            <tr>
+                                    <th>Date</th>
+                                    <th>Headline</th>
+                                    <th>Area</th>                                                     
+                            </tr>
+                    </thead>
+                    <tbody >
+                            <tr *ngFor="let em of lstCurRejectedEMs">                                    
+                                <td>{{em.alert_date}}</td>
+                                <td>{{em.headline}}</td>
+                                <td style="text-overflow: ellipsis;">{{em.area}}</td>                                    
+                            </tr>
+                    </tbody>       
+                  </table>
+                </div>
+                <div class="scroll">
+                  <table class="table table-hover table-striped table-responsive-xl">
+                    <thead class="table-dark center">                            
+                      <tr>
+                            <th>Date</th>
+                            <th>Headline</th>
+                            <th>Area</th>                                                     
+                      </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let em of lstCurRejectedEMs">                                    
+                            <td>{{em.alert_date}}</td>
+                            <td>{{em.headline}}</td>
+                            <td style="text-overflow: ellipsis;">{{em.area}}</td>                                    
+                        </tr>
+                    </tbody>       
+                  </table>
+                </div>
+                <div class="scroll">
+                  <table class="table table-hover table-striped table-responsive-xl">
+                    <thead class="table-dark center">                            
+                      <tr>
+                            <th>Date</th>
+                            <th>Headline</th>
+                            <th>Area</th>                                                     
+                      </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let em of lstCurRejectedEMs">                                    
+                            <td>{{em.alert_date}}</td>
+                            <td>{{em.headline}}</td>
+                            <td style="text-overflow: ellipsis;">{{em.area}}</td>                                    
+                        </tr>
+                    </tbody>       
+                  </table>
+                </div>
+            </div>
+            -->
+            <div class="map-container">
+              <div class="map-frame">
+            <div class="charts__right">
+              <div class="charts__right__title">
+                <div>
+                  <h1>Stats Todays Reports</h1>
+                  <p>Emergency Messages</p>
+                </div>
+                <i class="fa fa-usd" aria-hidden="true"></i>
+              </div>
+
+              <div class="charts__right__cards">
+                <div class="card1">
+                  <h1>Rejected EMs</h1>
+                  <p>{{lstCurRejectedEMs?.length}}</p>
+                </div>
+
+                <div class="card2">
+                  <h1>Booked EMs</h1>
+                  <p>?</p>
+                </div>
+
+                <div class="card3">
+                  <h1>Errors</h1>
+                  <p>?</p>
+                </div>
+
+                <div class="card4">
+                  <h1>Editor3 EMs</h1>
+                  <p>?</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- CHARTS ENDS HERE -->
+          </div>
+          </div>          
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  

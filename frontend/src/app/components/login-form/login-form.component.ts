@@ -1,6 +1,8 @@
 import { EventEmitter, Component, Output } from '@angular/core';
-import { AxiosService } from '../axios.service';
+import { AxiosService } from '../../axios.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { TokenStorageService } from '../../services/token-storage.service';
 
 @Component({
   selector: 'app-login-form',
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
   })
 export class LoginFormComponent {
 
-  constructor(private axiosService: AxiosService, private router: Router) { }
+  constructor(private authService:AuthService, private tokenService: TokenStorageService, private router: Router) { }
   
 active: string = "login";
   firstName: string = "";
@@ -26,19 +28,18 @@ active: string = "login";
 	}
 
   onLogin(): void {
-		this.axiosService.request(
-		    "POST",
-		    "/auth/signin",
-		    {
-		        username: this.login,
-		        password: this.password
-		    }).then(
+		this.authService.login(
+			    {
+					"username": this.login,
+		        	"password": this.password
+				}
+		    ).then(
 		    response => {
-		        this.axiosService.setAuthToken(response.data.accessToken);
+		        this.tokenService.saveToken(response.data.accessToken);
 		        this.router.navigate(["/home"])
 		    }).catch(
 		    error => {
-		        this.axiosService.setAuthToken(null);
+		        this.tokenService.saveToken(null);
 		        this.router.navigate(["/login"])
 		    }
 		);
@@ -46,21 +47,19 @@ active: string = "login";
 	}
 
 	onRegister(): void {
-		this.axiosService.request(
-		    "POST",
-		    "/auth/signup",
+		this.authService.register(		    
 		    {
-		        firstName: this.firstName,
-		        lastName: this.lastName,
-		        login: this.login,
-		        password: this.password
+		        "firstName": this.firstName,
+		        "lastName": this.lastName,
+		        "login": this.login,
+		        "password": this.password
 		    }).then(
 		    response => {
-		        this.axiosService.setAuthToken(response.data.token);
+		        this.tokenService.saveToken(response.data.token);
 		        this.router.navigate(["/home"])
 		    }).catch(
 		    error => {
-		        this.axiosService.setAuthToken(null);
+		        this.tokenService.saveToken(null);
 		        this.router.navigate(["/login"])
 		    }
 		);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AxiosService } from '../axios.service';
+import { RestdataService } from '../services/restdata.service';
 
 @Component({
   selector: 'app-auth-content',
@@ -9,24 +9,10 @@ import { AxiosService } from '../axios.service';
 export class AuthContentComponent {
   data: any;
 
-  constructor(private axiosService: AxiosService) {}
+  constructor(private dataService: RestdataService) {}
 
   ngOnInit(): void {
-    this.axiosService.request(
-        "GET",
-        "/api/cities",
-        {}).then(
-        (response) => {
-            this.data = response.data.map((a: { cityName: any; }) => a.cityName)
-        }).catch(
-        (error) => {
-            if (error.response.status === 401) {
-                this.axiosService.setAuthToken(null);
-            } else {
-                this.data = error.response.code;
-            }
-        }
-    );
+    this.data = this.dataService.getCities();
   }
 
 }

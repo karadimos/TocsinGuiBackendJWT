@@ -10,7 +10,6 @@ import { ButtonsComponent } from './buttons/buttons.component';
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
 import { AuthContentComponent } from './auth-content/auth-content.component';
-import { ContentComponent } from './content/content.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -23,23 +22,21 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 import { AxiosService } from './axios.service';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { HeaderComponent } from './components/header/header.component';
+import { ClusterComponent } from './components/cluster/cluster.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ButtonsComponent,
     HomeComponent,
     HeaderComponent,
     LoginFormComponent,
-    WelcomeContentComponent,
-    AuthContentComponent,
     SidenavComponent,
-    ContentComponent
+    ClusterComponent
   ],
   imports: [
     BrowserModule,

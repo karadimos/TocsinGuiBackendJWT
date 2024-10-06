@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { environment } from 'src/environments/environment';
+import { TokenStorageService } from './services/token-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AxiosService {
 
-  constructor() {
-    axios.defaults.baseURL = 'http://localhost:9090/tocsin-gui/';
+  constructor(private tokenService: TokenStorageService) {
+    axios.defaults.baseURL = environment.backendBaseUrl; //'http://localhost:9090/tocsin-gui/';
     axios.defaults.headers.post['Content-Type'] = 'application/json';
   }
-
+  /*
   getAuthToken(): string | null {
     return window.localStorage.getItem("auth_token");
   }
@@ -22,13 +24,13 @@ export class AxiosService {
       window.localStorage.removeItem("auth_token");
     }
   }
-
+  */
 
   request(method: string, url: string, data: any): Promise<any> {
       let headers: any = {};
 
-      if (this.getAuthToken() !== null) {
-          headers = {"Authorization": "Bearer " + this.getAuthToken()};
+      if (this.tokenService.getToken !== null) {
+          headers = {"Authorization": "Bearer " + this.tokenService.getToken()};
           //console.log("AuthToken: " + this.getAuthToken());
       }
 
