@@ -1,5 +1,4 @@
 import { EventEmitter, Component, Output } from '@angular/core';
-import { AxiosService } from '../../axios.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { TokenStorageService } from '../../services/token-storage.service';
@@ -11,13 +10,24 @@ import { TokenStorageService } from '../../services/token-storage.service';
   })
 export class LoginFormComponent {
 
-  constructor(private authService:AuthService, private tokenService: TokenStorageService, private router: Router) { }
+  constructor(private auth:AuthService, private tokenStorage: TokenStorageService, private router: Router) { }
   
-active: string = "login";
-  firstName: string = "";
-  lastName: string = "";
-  login: string = "";
-  password: string = "";
+	active: string = "login";
+  	firstName: string = "";
+  	lastName: string = "";
+  	login: string = "";
+  	password: string = "";
+	  isLoggedIn = false;
+	  isLoginFailed = false;
+	  errorMessage = '';
+	  roles: string[] = [];
+
+	  ngOnInit(): void {
+		if (this.tokenStorage.getToken()) {
+		  this.isLoggedIn = true;
+		  this.roles = this.tokenStorage.getUser().roles;
+		}
+	  }
 
 	onLoginTab(): void {
 		this.active = "login";
@@ -28,41 +38,46 @@ active: string = "login";
 	}
 
   onLogin(): void {
-		this.authService.login(
-			    {
-					"username": this.login,
-		        	"password": this.password
-				}
-		    ).then(
-		    response => {
-		        this.tokenService.saveToken(response.data.accessToken);
-		        this.router.navigate(["/home"])
-		    }).catch(
-		    error => {
-		        this.tokenService.saveToken(null);
-		        this.router.navigate(["/login"])
-		    }
-		);
+	this.auth.login(this.login, this.password).subscribe(
+		data => {
+		  //console.log("logged in!!");
+		  this.tokenStorage.saveToken(data.accessToken);
+		  this.tokenStorage.saveRefreshToken(data.refreshToken);
+		  this.tokenStorage.saveUser(data);
+  
+		  this.isLoginFailed = false;
+		  this.isLoggedIn = true;
+		  this.roles = this.tokenStorage.getUser().roles;
+		  this.router.navigate(["/home"])
+		},
+		err => {
+		  this.errorMessage = err.error.message;
+		  this.isLoginFailed = true;
+		  this.isLoggedIn = false;
+		}
+	  );
 
 	}
 
 	onRegister(): void {
-		this.authService.register(		    
-		    {
-		        "firstName": this.firstName,
-		        "lastName": this.lastName,
-		        "login": this.login,
-		        "password": this.password
-		    }).then(
-		    response => {
-		        this.tokenService.saveToken(response.data.token);
-		        this.router.navigate(["/home"])
-		    }).catch(
-		    error => {
-		        this.tokenService.saveToken(null);
-		        this.router.navigate(["/login"])
-		    }
-		);
+		this.auth.register(this.login, "admin@admin.de", this.firstName, this.lastName, this.password).subscribe(
+			data => {
+			  //console.log("logged in!!");
+			  this.tokenStorage.saveToken(data.accessToken);
+			  this.tokenStorage.saveRefreshToken(data.refreshToken);
+			  this.tokenStorage.saveUser(data);
+	  
+			  this.isLoginFailed = false;
+			  this.isLoggedIn = true;
+			  this.roles = this.tokenStorage.getUser().roles;
+			  this.router.navigate(["/home"])
+			},
+			err => {
+			  this.errorMessage = err.error.message;
+			  this.isLoginFailed = true;
+			  this.isLoggedIn = false;
+			}
+		  );
 	}
 
 }

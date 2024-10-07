@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
@@ -11,8 +12,6 @@ import { BundlesModel } from '../models/bundles';
 import { MediaModel } from '../models/media';
 import { CitiesModel } from '../models/cities';
 import { SenderGroupsModel } from '../models/sender-groups';
-import axios from 'axios';
-import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +20,8 @@ export class RestdataService {
 
   public baseUrl = environment.backendBaseUrl;
 
-  constructor(private tokenService: TokenStorageService) { }
-  /*
+  constructor(private http: HttpClient) { }
+
   addCluster(cluster: ClusterModel): Observable<any> {
     return this.http.post(this.baseUrl + 'api/add-cluster', cluster);
   }
@@ -47,57 +46,27 @@ export class RestdataService {
   countAllScreens(): Observable<number> {
     return this.http.get<number>(this.baseUrl + "api/dashboard/count-all-screens", { responseType: 'json' });
   }
-  */
-  
-  /*
-  getCluster(): Promise<any> {
-   return axios.get(this.baseUrl + "api/cluster")
-   .then(response => {
-    // Handle the successful response
-    console.log(response.data);
-  })
-  .catch(error => {
-    // Handle errors
-    console.error('An error occurred:', error);
-  });
-  */
-  getCluster(): Promise<any> {
-    return this.request("GET",this.baseUrl +  "api/cluster",{});         
+
+  getCluster(): Observable<ClusterModel[]> {
+    return this.http.get<ClusterModel[]>(this.baseUrl + "api/cluster", { responseType: 'json' });
   }
 
-  getCities(): Promise<any> {
-    return this.request("GET",this.baseUrl + "api/cities",{}); 
+  getCities(): Observable<CitiesModel[]> {
+    return this.http.get<CitiesModel[]>(this.baseUrl + "api/cities", { responseType: 'json' });
   }
 
-  getSenderGroups(): Promise<any> {
-    return this.request("GET",this.baseUrl + "api/data/sender-groups",{});    
+  getMedia(): Observable<MediaModel[]> {
+    return this.http.get<MediaModel[]>(this.baseUrl + "api/media", { responseType: 'json' });
   }
 
-  getMedia(): Promise<any> {
-    return this.request("GET",this.baseUrl + "api/media",{});
-}
-
-  getBundles(): Promise<any> {
-    return this.request("GET",this.baseUrl + "api/bundles",{});
+  getBundles(): Observable<BundlesModel[]> {
+    return this.http.get<BundlesModel[]>(this.baseUrl + "api/bundles", { responseType: 'json' });
   }
-  
-  request(method: string, url: string, data: any): Promise<any> {
-    let headers: any = {};
 
-    if (this.tokenService.getToken !== null) {
-        headers = {"Authorization": "Bearer " + this.tokenService.getToken()};
-        //console.log("AuthToken: " + this.getAuthToken());
-    }
+  getSenderGroups(): Observable<SenderGroupsModel[]> {
+    return this.http.get<SenderGroupsModel[]>(this.baseUrl + "api/data/sender-groups", { responseType: 'json' });
+  }
 
-    return axios({
-        method: method,
-        url: url,
-        data: data,
-        headers: headers
-    });
-}
-  
-  /*
   getCitiesOverview(): Observable<OverviewModel[]> {
     return this.http.get<OverviewModel[]>(this.baseUrl + "api/cities-overview", { responseType: 'json' });
   }
@@ -129,6 +98,5 @@ export class RestdataService {
   getRejectedEMs(): Observable<DashboardModel[]> {
     return this.http.get<DashboardModel[]>(this.baseUrl + "api/dashboard/rejected-ems", { responseType: 'json' });
   }
-    */
-}
 
+}

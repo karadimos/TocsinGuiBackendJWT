@@ -1,0 +1,108 @@
+.container{
+	min-width: 95%;
+	padding-top: 10px;
+}
+
+img{
+	width: 50px;
+	height: 20px;	
+	//margin-top: -45px;	
+}
+
+.fadeInDown {
+	//background-image: url(/css/images/logo.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	padding-top:95px;
+	margin-bottom:60px;
+	-webkit-animation-duration: 2s;
+	animation-duration: 2s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-name: fadeInDown;
+	animation-name: fadeInDown;
+ }
+ 
+ @-webkit-keyframes fadeInDown {
+	0% {
+	   opacity: 0;
+	   -webkit-transform: translateY(-20px);
+	}
+	100% {
+	   opacity: 1;
+	   -webkit-transform: translateY(0);
+	}
+ }
+ 
+ @keyframes fadeInDown {
+	0% {
+	   opacity: 0;
+	   transform: translateY(-20px);
+	}
+	100% {
+	   opacity: 1;
+	   transform: translateY(0);
+	}
+ }
+ 
+ 
+ .fadeOut {
+	animation: fadeOut ease 8s;
+	-webkit-animation: fadeOut ease 8s;
+	-moz-animation: fadeOut ease 8s;
+	-o-animation: fadeOut ease 8s;
+	-ms-animation: fadeOut ease 8s;
+  }
+
+  @keyframes fadeOut {
+	0% {
+	  opacity:1;
+	}
+	100% {
+	  opacity:0;
+	}
+  }
+  
+  #template{
+	height:900px;
+	width: 900px;
+  }
+
+  .modal-content  {
+	height: 900px;
+	width: 900px;
+  }
+
+
+  .map-containerx {
+	position: relative;
+	height: 900px;
+	width: 900px;
+	/*
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 30px;
+	*/
+  }
+  
+  .map-framex {
+	border: 2px solid black;
+	height: 100%;
+	width: 100%;
+  }
+  
+  #map {
+	height: 800px;
+	width: 100%;
+  }
+  
+  /* Responsive layout - makes a one column-layout instead of two-column layout */
+  @media (max-width: 800px) {
+	.flex-container {
+	  flex-direction: column;
+	}
+  }
+  
+  

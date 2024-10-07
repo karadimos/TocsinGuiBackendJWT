@@ -1,108 +1,40 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { TokenStorageService } from './token-storage.service';
-import axios from 'axios';
 
-//const AUTH_API = environment.backendBaseUrl;
-let headers: any = {};
+const AUTH_API = environment.backendBaseUrl;
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {	
-  constructor(private tokenService: TokenStorageService) {
-	axios.defaults.baseURL = environment.backendBaseUrl; //'http://localhost:9090/tocsin-gui/';
-    axios.defaults.headers.post['Content-Type'] = 'application/json';
-   }
-   
-	headers: {'Content-Type': 'application/json'};
-	/*
-	if (this.tokenService.getToken() !== null) {
-		//	headers = {"Authorization": "Bearer " + this.tokenService.getAuthToken};
-			//console.log("AuthToken: " + this.getAuthToken());
-		}
-	*/
-	//headers = {"Authorization": "Bearer " + this.getAuthToken()};
+export class AuthService {
+  constructor(private http: HttpClient) { }
 
-  login(input: any): Promise<any> {
-	console.log("login data: " + JSON.stringify(input));
-;	return axios({
-		method:"POST",
-		url:"auth/signin",
-		data:{
-			username: input.username,
-			password: input.password
-		},
-		headers:headers
-	});
-	}
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(AUTH_API + 'auth/signin', {
+      username,
+      password
+    }, httpOptions);
+  }
 
-	register(input: any): Promise<any> {
-		return axios({
-			method:"POST",
-			url:"auth/signup",
-			data:{
-				firstName: input.firstName,
-		        lastName: input.lastName,
-		        username: input.login,
-		        password: input.password
-			},
-			headers:headers
-		});
-	}
+  register(username: string, firstname: string, lastname: string, email: string, password: string): Observable<any> {
+    return this.http.post(AUTH_API + 'auth/signup', {
+      username,
+      //firstname,
+      //lastname,
+      email,
+      password
+    }, httpOptions);
+  }
 
-	/*
-		this.axiosService.request(
-		    "POST",
-		    "auth/signin",
-		    {
-		        username: input.login,
-		        password: input.password
-		    }).then(
-		    response => {
-		        this.tokenService.saveToken(response.data.accessToken);
-		    }).catch(
-		    error => {
-		        this.tokenService.saveToken(null);
-		    }
-		);
-	}
-	
-	register(input: any): void {
-		this.axiosService.request(
-		    "POST",
-		    "auth/signup",
-		    {
-		        firstName: input.firstName,
-		        lastName: input.lastName,
-		        login: input.login,
-		        password: input.password
-		    }).then(
-		    response => {
-		        this.tokenService.saveToken(response.data.token);
-		    }).catch(
-		    error => {
-		        this.tokenService.saveToken(null);
-		    }
-		);
-	}
-  
-  refreshToken(token: string): void {
-		this.axiosService.request(
-		    "POST",
-		    "auth/refreshtoken",
-		    {
-          refreshToken: token
-		    }).then(
-		    response => {
-		        this.tokenService.saveRefreshToken(response.data.accessToken);
-		    }).catch(
-		    error => {
-		        this.tokenService.saveToken(null);
-		    }
-		);
-	}
-		*/
+  refreshToken(token: string) {
+    return this.http.post(AUTH_API + 'auth/refreshtoken', {
+      refreshToken: token
+    }, httpOptions);
+  }
 }

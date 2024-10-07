@@ -1,0 +1,74 @@
+<div class="container">
+    <table class="table table-hover table-responsive-xl" *ngIf="mowasDetailsAlerts">
+            <thead class="table-dark">
+                    <tr style="text-align: center;">
+                            <th>Provider</th>
+                            <th style="cursor:pointer" (click)="sort('id')">Id&nbsp;<i class="fa fa-sort"></i></th>
+                            <th>Sender</th>
+                            <th style="cursor:pointer" (click)="sort('severity')">Severity&nbsp;<i class="fa fa-sort"></i></th>
+                            <th style="cursor:pointer" (click)="sort('effectiveTime')">effectiveTime&nbsp;<i class="fa fa-sort"></i></th>
+                            <th style="cursor:pointer" (click)="sort('messageHeader')">messageHeader&nbsp;<i class="fa fa-sort"></i></th>                            
+                            <th>AreaDesc</th>                        
+                            <th style="cursor:pointer" (click)="sort('errCode')">errCode&nbsp;<i class="fa fa-sort"></i></th>
+                            <th></th>
+                    </tr>            
+                </thead>
+                
+            <tbody [class.selectedRow]="mowasId===mowas.id" *ngFor="let mowas of mowasList | paginate: {itemsPerPage:23, currentPage:p}; let i=index">
+                    <tr>
+                        <td style="text-align: center;">
+                                <img src="assets/images/mowas-logo.png" />
+                                <!--img *ngIf="emergency.mowasRefId" src="assets/images/mowas-logo.png" /-->
+                        </td>
+                        <td>
+                            <a href="javascript:void(0);" (click)="onSelectIndex(mowas,1)">
+                                {{mowas.id}}
+                            </a>
+                        </td>
+                        <td>{{mowas.alertSender}}</td>
+                        <td [ngClass]="mowas.infoSeverityId.id == 4 ? 'bgc-red' : mowas.infoSeverityId.id == 3 ? 'bgc-yellow' : ''" 
+                          style="text-align: center;">     
+                          <mat-icon *ngIf="mowas.infoSeverityId.id == 4" style="position: relative;top:5px;">report_problem</mat-icon>                     
+                          {{mowas.infoSeverityId.severity}}
+                        </td>                            
+                        <td>{{mowas?.effectiveTime | date:'dd.MM.yy hh:mm'}}</td>
+                        <td><div class="ellipsis300" title={{mowas.messageHeader}}>{{mowas.messageHeader}}</div></td>                           
+                        <td>
+                          <div class="ellipsis500" title={{mowas.areaDescription}}>{{mowas.areaDescription}}</div>
+                        </td>
+                        <td>{{mowas.errCode}}</td>                
+                        <td>
+                            <i class="fas fa-globe icon-dark fa-lg" style="cursor:pointer" aria-hidden="true" 
+                            title="Show area in map" href="#" onclick="return false;" (click)="openModal(template, mowas)"></i>	
+                            <!--i class="fa fa-remove bg-primary" (click)="delEmergency(emergency.emergencyRefId.id)"></i-->
+                        </td>     
+                    </tr>                     
+                    <tr [ngClass]="'fadeInDown'"  *ngIf="mowasId===mowas.id">  
+                      <td [colSpan]=9>              
+                        <app-mowasdetails [mowasDetails]="selectedMowasDetails"></app-mowasdetails>
+                      </td>  
+                    </tr>
+            </tbody>        
+           
+    </table>
+    <div class="center"><pagination-controls (pageChange) = "p=$event" ></pagination-controls></div>
+</div>
+
+ 
+<ng-template #template>
+  <div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="map-container">
+      <div class="map-frame">
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-template>

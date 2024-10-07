@@ -20,7 +20,7 @@
                     </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let cluster of clusterFilteredList |  paginate: {itemsPerPage:15, currentPage:p};"> 
+                    <tr *ngFor="let cluster of clusterFilteredList |  paginate: {itemsPerPage:15, currentPage:p};">
                             <td>{{cluster.cluster}}</td>
                             <td class="center"><input type="checkbox" [ngModel]="cluster.active" onclick="return false;"/></td>
                             <td *ngIf="!cluster.cityUuid">  
@@ -38,10 +38,14 @@
                             <td class="center sm-font"><input type="checkbox" [ngModel]="cluster.allScreensInCluster" onclick="return false;"/>
                             <td>
                                     {{cluster.senderGroupId.groupName}}
+                                   <!-- <ul class="list-group" *ngFor="let sender of cluster.senderGroupId?.senderCollection">
+                                        <li class="list-group-item">{{sender.senderNutzer}}</li>                                   
+                                </ul>
+                                -->    
                             </td>
                             <td>{{cluster.senderGroupId.allowedSeverityAlerts}}</td>    
                             <td class="center sm-font">
-                                <a class="fas fa-edit fa-2x icon-green " title="Edit this cluster" href="#" onclick="return false;"></a> <!--(click)="openModal(template, cluster)"-->
+                                <a class="fas fa-edit fa-2x icon-green " title="Edit this cluster" href="#" onclick="return false;" ></a><!--(click)="openModal(template, cluster)"-->
                                 &nbsp;
                                 <a class="fas fa-trash fa-2x icon-dark link-delete" title="Delete this cluster" href="#" onclick="return false;"></a>	
                             </td>
@@ -49,8 +53,7 @@
             </tbody>        
     </table>    
     </div>
-    <div class="center">
-        <pagination-controls (pageChange) = "p=$event" ></pagination-controls></div>
+    <div class="center"><pagination-controls (pageChange) = "p=$event" ></pagination-controls></div>
 <!--
     <ng-template #template>
         <div class="modal-header">
@@ -92,6 +95,8 @@
                                         </option>
                                 </select>                                       
                         </div>  
+
+                       
 
                         <div class="form-group row">
                                 <label for="warnstufen" class="col-sm-2 col-form-label">Bundle</label>  

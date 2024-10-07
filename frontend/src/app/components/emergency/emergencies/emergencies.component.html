@@ -1,0 +1,71 @@
+<div class="container">
+    <table class="table table-hover table-responsive-xl" *ngIf="emergencyDetailsAlerts">
+            <thead class="table-dark">
+                    <tr style="text-align: center;">
+                            <th>Provider</th>
+                            <th style="cursor:pointer" (click)="sort('id')">Id&nbsp;<i class="fa fa-sort"></i></th>
+                            <th>Sender</th>
+                            <th style="cursor:pointer" (click)="sort('severity')">Severity&nbsp;<i class="fa fa-sort"></i></th>
+                            <th style="cursor:pointer" (click)="sort('effectiveTime')">effectiveTime&nbsp;<i class="fa fa-sort"></i></th>
+                            <th style="cursor:pointer" (click)="sort('messageHeader')">messageHeader&nbsp;<i class="fa fa-sort"></i></th>
+                            <th style="cursor:pointer" (click)="sort('errCode')">errCode&nbsp;<i class="fa fa-sort"></i></th>
+                            <th>AreaDesc</th>                        
+                            <th></th>
+                    </tr>            
+                </thead>
+                <!--tbody [class.selectedRow]="emergencyId===emergency.id" *ngFor="let emergency of getEmergencies(); let i=index"-->
+            <tbody [class.selectedRow]="emergencyId===emergency.id" *ngFor="let emergency of emergencies | paginate: {itemsPerPage:18, currentPage:p}; let i=index">
+                    <tr>
+                        <td style="text-align: center;">
+                                <img *ngIf="emergency.mowasRefId" src="assets/images/mowas-logo.png" />
+                        </td>
+                        <td>
+                            <a href="javascript:void(0);" (click)="onSelectIndex(emergency,1)">
+                                {{emergency.id}}
+                            </a>
+                        </td>
+                        <td>{{emergency.senderId}}</td>
+                        <td [ngClass]="emergency.severityId.id == 4 ? 'bgc-red' : emergency.severityId.id == 3 ? 'bgc-yellow' : ''" 
+                          style="text-align: center;">
+                          <mat-icon *ngIf="emergency.severityId.id == 4" style="position: relative;top:5px;">report_problem</mat-icon>
+                          {{emergency.severityId.severity}}
+                        </td>                                        
+                        <td>{{emergency?.effectiveTime}}</td>
+                        <td>{{emergency.messageHeader}}</td>   
+                        <td>{{emergency.errCode}}</td>             
+                        <td>{{emergency.areaDescription}}</td>                                   
+                        <td>
+                                <i class="fas fa-globe icon-dark fa-lg" style="cursor:pointer" aria-hidden="true" 
+                                title="Show area in map" href="#" onclick="return false;" (click)="openModal(template, emergency)"></i>	
+                                <!--i class="fa fa-remove bg-primary" (click)="delEmergency(emergency.emergencyRefId.id)"></i-->
+                        </td>     
+                    </tr>                     
+                    <tr [ngClass]="'fadeInDown'"  *ngIf="emergencyId===emergency.id">  
+                      <td [colSpan]=9>              
+                        <app-emergencydetails [emergencyDetails]="selectedEmergencyDetails"></app-emergencydetails>
+                      </td>  
+                    </tr>
+            </tbody>        
+           
+    </table>
+    <div class="center"><pagination-controls (pageChange) = "p=$event" ></pagination-controls></div>
+</div>
+
+ 
+<ng-template #template>
+  <div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="map-container">
+      <div class="map-frame">
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-template>

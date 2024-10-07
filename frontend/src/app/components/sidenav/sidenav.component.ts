@@ -9,7 +9,7 @@ export class SidenavComponent implements OnInit {
 
   public showSubmenu:boolean=false;
   
-  constructor() { }  
+  constructor() { }
 
   ngOnInit(): void {
   }

@@ -1,0 +1,51 @@
+.container {
+  min-width: 100%;
+}
+
+.ellipsis {
+  display: inline-block;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.modal-content {
+  height: 900px;
+  width: 900px;
+}
+
+.map-containerx {
+  position: relative;
+  height: 900px;
+  width: 900px;
+  /*
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 30px;
+	*/
+}
+
+.map-framex {
+  border: 2px solid black;
+  height: 100%;
+  width: 100%;
+}
+
+#map {
+  height: 800px;
+  width: 100%;
+}
+
+/* Responsive layout - makes a one column-layout instead of two-column layout */
+@media (max-width: 800px) {
+  .flex-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+/*# sourceMappingURL=emergencydetails.component.css.map */

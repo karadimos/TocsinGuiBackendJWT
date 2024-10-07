@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+//import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BundlesModel } from 'src/app/models/bundles';
 import { CitiesModel } from 'src/app/models/cities';
 import { MediaModel } from 'src/app/models/media';
@@ -9,7 +10,6 @@ import { EventData } from 'src/app/services/event.class';
 import { ClusterModel } from '../../models/cluster';
 import { RestdataService } from '../../services/restdata.service';
 import { UtilitiesService } from '../../services/utilities.service';
-//import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-cluster',
@@ -31,10 +31,9 @@ export class ClusterComponent implements OnInit {
   content?: string;
 
   //modalRef?: BsModalRef;
-  //public editClusterForm !: FormGroup;
 
-  constructor(private restdata: RestdataService, private utility: UtilitiesService, 
-    private formBuilder: FormBuilder, private eventBusService: EventBusService) { } //private modalService: BsModalService,
+  constructor(private restdata: RestdataService, private utility: UtilitiesService, //private modalService: BsModalService,
+    private formBuilder: FormBuilder, private eventBusService: EventBusService) { }
 
   ngOnInit(): void {
 
@@ -48,14 +47,13 @@ export class ClusterComponent implements OnInit {
   useIdAsIdent(item1: { id: any; }, item2: { id: any; }) {
     return item1 && item2 ? item1.id === item2.id : item1 === item2;
   }
-  /*
+/*
   openModal(template: TemplateRef<any>, editCluster: ClusterModel) {
     this.editCluster = editCluster;
     console.log("editCluster: " + JSON.stringify(this.editCluster));
-    
     this.modalRef = this.modalService.show(template);
   }
-  */
+*/
   saveCluster() {
 
   }
@@ -74,31 +72,29 @@ export class ClusterComponent implements OnInit {
   }
 
   getCluster(): any {
-    this.restdata.getCluster().then(      
-      (cluster: any) => {                
-        this.clusterList = cluster.data.sort(function (itemA:any,itemB:any) {
+    this.restdata.getCluster().subscribe(
+      (cluster: ClusterModel[]) => {
+        this.clusterList = cluster.sort(function (itemA, itemB) {
           return itemA.cityUuid?.cityName.localeCompare(itemB.cityUuid?.cityName, undefined, { numeric: false, sensitivity: 'base' });
         });
-        this.clusterFilteredList = this.clusterList;
-        
-      }).catch(
-        (err) => {
-          console.log("error: " + JSON.stringify(err));
-          this.utility.onError("Error in getCluster: " + JSON.stringify(err));
-          this.content = err.error.message || err.error || err.message;
-          if (err.status === 403) {
-            this.eventBusService.emit(new EventData('logout', null));
-          }
-          return null;
+        this.clusterFilteredList = cluster;
+      },
+      (err) => {
+        this.utility.onError("Error in getCluster: " + JSON.stringify(err));
+        this.content = err.error.message || err.error || err.message;
+        if (err.status === 403) {
+          this.eventBusService.emit(new EventData('logout', null));
         }
+        return null;
+      }
     );
   }
 
-  getCities(): any {
-    this.restdata.getCities().then(
+  getCities(): void {
+    this.restdata.getCities().subscribe(
       (cities: CitiesModel[]) => {
         //console.log("cities: " + cities);
-        this.cities = [].slice.call(cities).sort(function (itemA: { cityName: string; }, itemB: { cityName: any; }) {
+        this.cities = cities.sort(function (itemA, itemB) {
           return itemA.cityName.localeCompare(itemB.cityName, undefined, { numeric: false, sensitivity: 'base' });
         });
       },
@@ -113,11 +109,11 @@ export class ClusterComponent implements OnInit {
     );
   }
 
-  getMedia(): any {
-    this.restdata.getMedia().then(
+  getMedia(): void {
+    this.restdata.getMedia().subscribe(
       (media: MediaModel[]) => {
         //console.log("media: " + JSON.stringify(media));    
-        this.media = [].slice.call(media).sort(function (itemA: { mediaName: string; }, itemB: { mediaName: any; }) {
+        this.media = media.sort(function (itemA, itemB) {
           return itemA.mediaName.localeCompare(itemB.mediaName, undefined, { numeric: false, sensitivity: 'base' });
         });
       },
@@ -131,12 +127,12 @@ export class ClusterComponent implements OnInit {
       }
     );
   }
-  
-  getBundles(): any {
-    this.restdata.getBundles().then(
+
+  getBundles(): void {
+    this.restdata.getBundles().subscribe(
       (bundles: BundlesModel[]) => {
         //console.log("bundles: " + bundles);
-        this.bundles = [].slice.call(bundles).sort(function (itemA: { bundleName: string; }, itemB: { bundleName: any; }) {
+        this.bundles = bundles.sort(function (itemA, itemB) {
           return itemA.bundleName.localeCompare(itemB.bundleName, undefined, { numeric: false, sensitivity: 'base' });
         });
       },
@@ -151,11 +147,11 @@ export class ClusterComponent implements OnInit {
     );
   }
 
-  getSenderGroups(): any {
-    this.restdata.getSenderGroups().then(
+  getSenderGroups(): void {
+    this.restdata.getSenderGroups().subscribe(
       (senderGroups: SenderGroupsModel[]) => {
         //console.log("senderGroups: " + senderGroups);
-        this.senderGroups = [].slice.call(senderGroups).sort(function (itemA: { groupName: string; }, itemB: { groupName: any; }) {
+        this.senderGroups = senderGroups.sort(function (itemA, itemB) {
           return itemA.groupName.localeCompare(itemB.groupName, undefined, { numeric: false, sensitivity: 'base' });
         });
       },
@@ -169,7 +165,7 @@ export class ClusterComponent implements OnInit {
       }
     );
   }
-  
+
   sort(fieldName: string): any {
     this.reverse = !this.reverse;
     //console.log("fieldName: " + fieldName);
@@ -186,5 +182,5 @@ export class ClusterComponent implements OnInit {
         this.clusterList = this.clusterList.sort((a, b) => (b.mediaUuid.mediaName > a.mediaUuid.mediaName) ? 1 : -1);
       }
   }
-  
+
 }
