@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-//import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BundlesModel } from 'src/app/models/bundles';
 import { CitiesModel } from 'src/app/models/cities';
 import { MediaModel } from 'src/app/models/media';
@@ -30,9 +30,9 @@ export class ClusterComponent implements OnInit {
   p: number = 1;
   content?: string;
 
-  //modalRef?: BsModalRef;
+  modalRef?: BsModalRef;
 
-  constructor(private restdata: RestdataService, private utility: UtilitiesService, //private modalService: BsModalService,
+  constructor(private restdata: RestdataService, private utility: UtilitiesService, private modalService: BsModalService,
     private formBuilder: FormBuilder, private eventBusService: EventBusService) { }
 
   ngOnInit(): void {
@@ -47,13 +47,13 @@ export class ClusterComponent implements OnInit {
   useIdAsIdent(item1: { id: any; }, item2: { id: any; }) {
     return item1 && item2 ? item1.id === item2.id : item1 === item2;
   }
-/*
+
   openModal(template: TemplateRef<any>, editCluster: ClusterModel) {
     this.editCluster = editCluster;
     console.log("editCluster: " + JSON.stringify(this.editCluster));
     this.modalRef = this.modalService.show(template);
   }
-*/
+
   saveCluster() {
 
   }

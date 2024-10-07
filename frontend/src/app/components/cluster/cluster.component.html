@@ -45,7 +45,7 @@
                             </td>
                             <td>{{cluster.senderGroupId.allowedSeverityAlerts}}</td>    
                             <td class="center sm-font">
-                                <a class="fas fa-edit fa-2x icon-green " title="Edit this cluster" href="#" onclick="return false;" ></a><!--(click)="openModal(template, cluster)"-->
+                                <a class="fas fa-edit fa-2x icon-green " title="Edit this cluster" href="#" onclick="return false;" (click)="openModal(template, cluster)"></a><!---->
                                 &nbsp;
                                 <a class="fas fa-trash fa-2x icon-dark link-delete" title="Delete this cluster" href="#" onclick="return false;"></a>	
                             </td>
@@ -54,7 +54,6 @@
     </table>    
     </div>
     <div class="center"><pagination-controls (pageChange) = "p=$event" ></pagination-controls></div>
-<!--
     <ng-template #template>
         <div class="modal-header">
                 <h4 class="modal-title pull-left">Modal</h4>
@@ -124,4 +123,3 @@
                
               </div>
       </ng-template>
--->

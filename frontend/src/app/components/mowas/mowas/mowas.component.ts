@@ -49,7 +49,7 @@ export class MowasComponent implements OnInit {
 
   }
 
-  openModal(template: TemplateRef<any>, mowas: MowasModel) {
+  openModal(template: TemplateRef<any>, mowas: MowasModel) {    
     //const emd: any = emergency.emergencyDetailsCollection.find(ed => ed.msgType === 'alert');    
     //this.getBookedFacesIn(template, mowas);
   }

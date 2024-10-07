@@ -39,6 +39,7 @@ import { EmergencydetailsComponent } from './components/emergency/emergencydetai
 import { MowasComponent } from './components/mowas/mowas/mowas.component';
 import { MowasdetailsComponent } from './components/mowas/mowasdetails/mowasdetails.component';
 import { MainComponent } from './components/reports/main/main.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { MainComponent } from './components/reports/main/main.component';
     MatListModule,
     MatProgressSpinnerModule,
     NgxPaginationModule,
+    ModalModule.forRoot(),
     //Ng2SearchPipeModule,
     SimpleNotificationsModule.forRoot()
   ],
